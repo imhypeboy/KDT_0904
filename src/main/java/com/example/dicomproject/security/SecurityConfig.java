@@ -48,7 +48,7 @@ public class SecurityConfig {
         CorsConfiguration cfg = new CorsConfiguration();
 
         // 프론트 오리진만 명시 (여러 개면 콤마 추가)
-        cfg.setAllowedOriginPatterns(List.of("http://localhost:3000", "http://127.0.0.1:3000"));
+        cfg.setAllowedOriginPatterns(List.of("http://localhost:3000", "http://210.94.241.40:3000"));
 
         cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
@@ -78,8 +78,9 @@ public class SecurityConfig {
                 .cors(c -> c.configurationSource(corsConfigurationSource))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/dicom/instances/**","/api/dicom/studies/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/dicom/query/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .anyRequest().authenticated()

@@ -27,7 +27,13 @@ const WL_PRESETS: Record<string, { wc: number; ww: number }> = {
 export function ViewerPage({ studyKey }: ViewerPageProps) {
     // Cornerstone 초기화
     useEffect(() => {
-        setupCornerstone();
+        (async () => {
+            try {
+                await setupCornerstone();
+            } catch (err) {
+                console.warn("Cornerstone already initialized:", err);
+            }
+        })();
     }, []);
 
     const { navigateTo } = useNavigation();
@@ -228,9 +234,9 @@ export function ViewerPage({ studyKey }: ViewerPageProps) {
                 </div>
             </div>
 
-            <div className="flex-1 flex">
+            <div className="flex-1 flex min-h-0">
                 {/* 사이드바 - Series 목록 */}
-                <div className="w-80 bg-gray-850 border-r border-gray-700 overflow-y-auto">
+                <div className="w-80 h-full bg-gray-850 border-r border-gray-700 overflow-y-auto">
                     <div className="p-4">
                         <h3 className="text-md font-semibold text-gray-200 mb-4">Series 목록</h3>
                         <div className="space-y-2">

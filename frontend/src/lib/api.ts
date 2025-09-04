@@ -192,11 +192,13 @@ class ApiClient {
         page = 0,
         size = 20,
     ): Promise<PagedResponse<StudySummaryDto>> {
-        const res = await this.axiosInstance.get<PagedResponse<StudySummaryDto>>("/api/dicom/query", {
-            params: { ...params, page, size },
-        })
+        const res = await this.axiosInstance.get<PagedResponse<StudySummaryDto>>(
+            "/api/dicom/query",
+            { params: { ...params, page, size } }
+        )
         return res.data
     }
+
     // ✅ studyKey로 manifest 조회 (백엔드 엔드포인트에 맞게 경로 조정)
     async getStudyManifest(studyKey: number, onProgress?: (p: number) => void) {
         const res = await this.axiosInstance.get(`/api/studies/${studyKey}/manifest`, {

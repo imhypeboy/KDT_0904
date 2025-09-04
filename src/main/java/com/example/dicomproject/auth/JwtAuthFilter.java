@@ -29,7 +29,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             "/api/dicom/studies/**",     // 매니페스트/조회가 공개라면 포함
             "/v3/api-docs/**",
             "/swagger-ui/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "/api/dicom/query/**"
     };
 
     @Override
