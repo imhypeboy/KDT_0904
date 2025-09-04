@@ -26,7 +26,8 @@ import SignupPage from "./signup-page"
 // cornerstone을 전역 변수로 선언 (동적 import로 초기화)
 let cornerstone: any = null;
 
-interface Patient {
+// legacy 전용 로컬 타입(점진 제거 대상)
+interface LegacyPatient {
     id: string
     name: string
     age: number
@@ -37,7 +38,7 @@ interface Patient {
     images: string[] // DICOM 이미지 경로
 }
 
-const mockPatients: Patient[] = [
+const mockPatients: LegacyPatient[] = [
     {
         id: "P001",
         name: "김철수",

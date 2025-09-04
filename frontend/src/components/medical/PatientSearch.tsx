@@ -324,6 +324,7 @@ export const PatientSearch: React.FC<PatientSearchProps> = ({ onPatientSelect })
                                             key={study.studyKey}
                                             patient={createPatientFromStudy(study)}
                                             onClick={() => handlePatientSelect(study)}
+                                            onDoubleClick={() => handlePatientSelect(study)}
                                         />
                                     ))}
                                 </div>

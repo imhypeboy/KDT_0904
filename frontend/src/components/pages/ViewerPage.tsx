@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, ZoomIn, ZoomOut, Eye, Play, Pause, RotateCcw, RotateCw } from 'lucide-react';
+import { Header } from '@/components/layout/Header';
 import { CornerstoneViewport } from '@/components/viewer/CornerstoneViewport';
 import { usePrefetchCornerstone } from '@/hooks/usePreFetchCornerStone';
 
@@ -205,7 +206,10 @@ export function ViewerPage({ studyKey }: ViewerPageProps) {
 
     return (
         <div className="h-screen bg-gray-900 flex flex-col">
-            {/* 헤더 */}
+            {/* 공용 헤더 */}
+            <Header currentView="viewer" />
+
+            {/* 스터디 정보 바 */}
             <div className="bg-gray-800 border-b border-gray-700 p-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">

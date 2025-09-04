@@ -4,17 +4,19 @@ import type React from "react"
 import {Card, CardContent} from "@/components/ui/card"
 import {Badge} from "@/components/ui/badge"
 import type {Patient} from "@/types/medical.types"
-import {User, FileText} from "lucide-react"
+import { User, FileText } from "lucide-react"
 
 interface PatientCardProps {
     patient: Patient,
-    onClick?: () => void
+    onClick?: () => void,
+    onDoubleClick?: () => void,
 }
 
-export const PatientCard: React.FC<PatientCardProps> = ({patient, onClick}) => {
+export const PatientCard: React.FC<PatientCardProps> = ({patient, onClick, onDoubleClick}) => {
     return (
         <Card className="cursor-pointer hover:bg-gray-700 transition-colors border-gray-600 bg-gray-800"
-              onClick={onClick}>
+              onClick={onClick}
+              onDoubleClick={onDoubleClick}>
             <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
