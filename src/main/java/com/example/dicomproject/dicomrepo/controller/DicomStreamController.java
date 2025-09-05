@@ -90,7 +90,7 @@ public class DicomStreamController {
                             r.sopInstanceUid(),
                             r.seriesInstanceUid(),
                             r.modality(),
-                            "http://localhost:8080/api/dicom/instances/" + r.sopInstanceUid() + "/file"
+                            "http://210.94.241.38:8080/api/dicom/instances/" + r.sopInstanceUid() + "/file"
                     ))
                     .toList();
 

@@ -4,12 +4,10 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { 
   Search, 
-  FolderOpen, 
-  Database, 
-  Activity 
+  FolderOpen,
+  User
 } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import { APP_CONFIG } from '@/config/app.config';
@@ -23,21 +21,34 @@ interface SidebarProps {
 const iconMap = {
   Search,
   FolderOpen,
-  Database,
-  Activity,
+  User,
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView = 'main' }) => {
   const { navigateTo } = useApp();
 
   const handleNavigate = (key: string) => {
-    const viewMode = key === 'search' ? 'search' : 'main';
+    let viewMode: ViewMode = 'main';
+    switch (key) {
+      case 'search':
+        viewMode = 'search';
+        break;
+      case 'user-management':
+        viewMode = 'user-management';
+        break;
+      case 'viewer':
+        viewMode = 'main';
+        break;
+      default:
+        viewMode = 'main';
+    }
     navigateTo(viewMode);
   };
 
   const getItemStyle = (key: string) => {
     const isActive = (key === 'search' && currentView === 'search') || 
-                    (key !== 'search' && currentView === 'main');
+                    (key === 'user-management' && currentView === 'user-management') ||
+                    (key === 'viewer' && currentView === 'main');
     
     return isActive 
       ? "w-full justify-start bg-gray-800 text-white border-r-2 border-red-500" 
@@ -69,31 +80,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView = 'main' }) => {
               </Button>
             );
           })}
-        </div>
-
-        <Separator className="my-4" />
-
-        {/* 추가 도구들 */}
-        <div className="space-y-2">
-          <div className="text-xs text-gray-500 uppercase tracking-wide px-3 py-2">
-            도구
-          </div>
-          
-          <Button
-            variant="ghost"
-            className="w-full justify-start text-gray-300 hover:bg-gray-800"
-          >
-            <Activity className="h-4 w-4 mr-3" />
-            시스템 상태
-          </Button>
-          
-          <Button
-            variant="ghost"
-            className="w-full justify-start text-gray-300 hover:bg-gray-800"
-          >
-            <Database className="h-4 w-4 mr-3" />
-            데이터 백업
-          </Button>
         </div>
       </nav>
 

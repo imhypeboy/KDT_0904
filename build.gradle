@@ -49,6 +49,7 @@ dependencies {
     //DB
     runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    runtimeOnly 'com.h2database:h2' // H2 인메모리 데이터베이스 (개발용)
 
     // SMB
     implementation 'eu.agno3.jcifs:jcifs-ng:2.1.8'

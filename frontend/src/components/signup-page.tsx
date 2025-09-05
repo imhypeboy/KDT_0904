@@ -12,6 +12,7 @@ interface SignupPageProps {
 export default function SignupPage({ onSignupSuccess, onBackToLogin }: SignupPageProps) {
     const {
         formData,
+        setFormData,
         handleInputChange,
         showPassword,
         setShowPassword,
@@ -95,9 +96,10 @@ export default function SignupPage({ onSignupSuccess, onBackToLogin }: SignupPag
                                     />
                                 </div>
                             </div>
+                            
                             {/* 이름 */}
                             <div>
-                                <label htmlFor="id" className="block text-sm font-medium text-gray-300 mb-2">
+                                <label htmlFor="displayName" className="block text-sm font-medium text-gray-300 mb-2">
                                     이름 <span className="text-red-400">*</span>
                                 </label>
                                 <div className="relative">
@@ -106,16 +108,63 @@ export default function SignupPage({ onSignupSuccess, onBackToLogin }: SignupPag
                                     </div>
                                     <input
                                         id="displayName"
-                                        name="displayName"                             // ✅ 필수
+                                        name="displayName"
                                         type="text"
-                                        value={formData.displayName}                  // ✅ 바인딩
-                                        onChange={handleInputChange}                  // ✅ 훅 함수 사용
+                                        value={formData.displayName}
+                                        onChange={handleInputChange}
                                         className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-600 text-white placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors"
-                                        placeholder="표시 이름을 입력하세요"
+                                        placeholder="실명을 입력하세요"
                                         required
                                     />
                                 </div>
                             </div>
+
+
+                            {/* 연락처 */}
+                            <div>
+                                <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                                    연락처 <span className="text-red-400">*</span>
+                                </label>
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <User className="h-5 w-5 text-gray-400" />
+                                    </div>
+                                    <input
+                                        id="phone"
+                                        name="phone"
+                                        type="tel"
+                                        value={formData.phone}
+                                        onChange={handleInputChange}
+                                        className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-600 text-white placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors"
+                                        placeholder="010-1234-5678"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            {/* 직급 */}
+                            <div>
+                                <label htmlFor="position" className="block text-sm font-medium text-gray-300 mb-2">
+                                    직급 <span className="text-red-400">*</span>
+                                </label>
+                                <select
+                                    id="position"
+                                    name="position"
+                                    value={formData.position}
+                                    onChange={(e) => setFormData(prev => ({...prev, position: e.target.value}))}
+                                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors"
+                                    required
+                                >
+                                    <option value="">직급을 선택하세요</option>
+                                    <option value="doctor">의사</option>
+                                    <option value="specialist">전문의</option>
+                                    <option value="professor">교수</option>
+                                    <option value="resident">레지던트</option>
+                                    <option value="technician">기사</option>
+                                    <option value="nurse">간호사</option>
+                                </select>
+                            </div>
+
                             {/* 비밀번호 */}
                             <div>
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">

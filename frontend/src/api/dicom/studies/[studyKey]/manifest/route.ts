@@ -11,7 +11,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-const BACKEND_API_BASE="http://localhost:8080";
+const BACKEND_API_BASE="http://210.94.241.38:8080";
 
 export async function GET(
     req: NextRequest,

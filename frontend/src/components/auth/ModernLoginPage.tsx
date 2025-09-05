@@ -53,18 +53,6 @@ export default function ModernLoginPage() {
         navigateTo('signup')
     }
 
-    // 데모 계정 정보
-    const demoAccounts = [
-        { username: "admin", password: "admin", role: "관리자" },
-        { username: "doctor", password: "doctor", role: "의사" },
-        { username: "tech", password: "tech", role: "기사" },
-    ]
-
-    const setDemoAccount = (account: { username: string; password: string }) => {
-        setUsername(account.username)
-        setPassword(account.password)
-        clearError()
-    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex flex-col">
@@ -185,31 +173,6 @@ export default function ModernLoginPage() {
                         </CardContent>
                     </Card>
 
-                    {/* 데모 계정 카드 */}
-                    <Card className="border-gray-600">
-                        <CardHeader>
-                            <CardTitle className="text-lg">데모 계정</CardTitle>
-                            <CardDescription>
-                                테스트를 위한 계정들입니다
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="grid grid-cols-1 gap-2">
-                                {demoAccounts.map((account, index) => (
-                                    <Button
-                                        key={index}
-                                        variant="outline"
-                                        onClick={() => setDemoAccount(account)}
-                                        className="justify-between"
-                                        disabled={isLoading}
-                                    >
-                                        <span>{account.username}</span>
-                                        <Badge variant="secondary">{account.role}</Badge>
-                                    </Button>
-                                ))}
-                            </div>
-                        </CardContent>
-                    </Card>
                 </div>
             </div>
 

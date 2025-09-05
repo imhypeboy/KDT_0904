@@ -42,19 +42,14 @@ export const APP_CONFIG = {
   navigation: [
     { key: 'home', label: '홈', path: '/main' },
     { key: 'search', label: '환자 검색', path: '/search' },
-    { key: 'reading', label: '판독', path: '/reading' },
-    { key: 'report', label: '리포트', path: '/report' },
-    { key: 'statistics', label: '통계', path: '/statistics' },
-    { key: 'settings', label: '설정', path: '/settings' },
-    { key: 'help', label: '도움말', path: '/help' },
+    { key: 'user-management', label: '회원 관리', path: '/user-management' },
   ],
   
   // 사이드바 메뉴
   sidebar: [
+    { key: 'viewer', label: '홈', icon: 'FolderOpen' },
     { key: 'search', label: '환자 검색', icon: 'Search' },
-    { key: 'viewer', label: '영상 보기', icon: 'FolderOpen' },
-    { key: 'database', label: '데이터베이스', icon: 'Database' },
-    { key: 'monitoring', label: '모니터링', icon: 'Activity' },
+    { key: 'user-management', label: '회원 관리', icon: 'User' },
   ],
 } as const;
 

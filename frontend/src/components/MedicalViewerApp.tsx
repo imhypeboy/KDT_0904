@@ -11,6 +11,7 @@ import SignupPage from './signup-page';
 import { MainDashboard } from './pages/MainDashboard';
 import { SearchPage } from './pages/SearchPage';
 import { ViewerPage } from './pages/ViewerPage';
+import UserManagementPage from './pages/UserManagementPage';
 
 export default function MedicalViewerApp() {
     const { viewMode, navigateTo } = useNavigation();
@@ -44,6 +45,9 @@ export default function MedicalViewerApp() {
       // 선택된 환자의 식별자에서 우선순위대로 전달: studyInstanceUID > patientId > id
       const studyKey1 = selectedPatient.studyKey;
       return <ViewerPage studyKey={studyKey1} />;
+    
+    case 'user-management':
+      return <UserManagementPage />;
     
     default:
       return <MainDashboard />;

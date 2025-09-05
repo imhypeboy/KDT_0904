@@ -3,7 +3,7 @@
 import axios, { type AxiosError, type AxiosRequestConfig } from "axios"
 import type { PagedResponse, StudySummaryDto, AuthResponse } from "@/types/medical.types"
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://210.94.241.38:8080"
 
 // axios config에 커스텀 플래그를 쓰기 위한 타입 확장 (재선시도 표시)
 declare module "axios" {

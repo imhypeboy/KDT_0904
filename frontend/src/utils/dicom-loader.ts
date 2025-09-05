@@ -5,7 +5,7 @@
 import { DicomManifest, DicomApiResponse, DicomLoadingState } from '@/types/dicom.types';
 
 // API 기본 설정
-const DICOM_API_BASE = 'http://localhost:8080/api/dicom';
+const DICOM_API_BASE = 'http://210.94.241.38:8080/api/dicom';
 const DEFAULT_TIMEOUT = 30000; // 30초
 
 /**

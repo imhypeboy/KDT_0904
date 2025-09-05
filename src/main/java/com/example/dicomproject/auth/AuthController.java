@@ -7,8 +7,6 @@ import com.example.dicomproject.userrepo.entity.UserAccount;
 import com.example.dicomproject.userrepo.repository.RefreshTokenRepository;
 import com.example.dicomproject.userrepo.repository.RoleRepository;
 import com.example.dicomproject.userrepo.repository.UserRepository;
-import com.example.dicomproject.auth.JwtService;
-import com.example.dicomproject.auth.TokenStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,8 +53,28 @@ public class AuthController {
                 });
         user.setRoles(Set.of(roleUser));
 
-        userRepository.save(user);
-        return ResponseEntity.ok(Map.of("message", "signup ok"));
+        UserAccount savedUser = userRepository.save(user);
+
+        // 회원가입 성공 시 자동 로그인 - 토큰 발급
+        var claims = Map.<String,Object>of(
+                "roles", savedUser.getRoles().stream().map(Role::getName).toList()
+        );
+        String access  = jwt.generateAccessToken(savedUser.getUsername(), claims);
+        String refresh = jwt.generateRefreshToken(savedUser.getUsername());
+
+        // 리프레시 토큰 저장
+        RefreshToken rt = new RefreshToken();
+        rt.setUser(savedUser);
+        rt.setToken(refresh);
+        rt.setExpiresAt(LocalDateTime.now().plusDays(14));
+        refreshTokenRepository.save(rt);
+
+        long expiresInSec = jwt.getAccessExpiresInSec(access);
+
+        return ResponseEntity.ok(new AuthResponse(
+                access, refresh, "Bearer", expiresInSec,
+                savedUser.getUsername(), savedUser.getDisplayName()
+        ));
     }
 
     // 로그인 → 액세스/리프레시 발급

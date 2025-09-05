@@ -1,4 +1,4 @@
-"use client";
+x"use client";
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CornerstoneViewport } from "@/components/viewer/CornerstoneViewport";

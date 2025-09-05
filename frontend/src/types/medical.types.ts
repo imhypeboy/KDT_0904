@@ -35,7 +35,7 @@ export type ModalityType =
   | 'OT';     // Other
 
 // 뷰 모드 타입
-export type ViewMode = 'login' | 'signup' | 'main' | 'search' | 'viewer';
+export type ViewMode = 'login' | 'signup' | 'main' | 'search' | 'viewer' | 'user-management';
 
 // 뷰어 상태
 export interface ViewerState {
@@ -229,4 +229,37 @@ export interface AuthResponse {
     refreshToken: string
     username: string
     displayName: string
+}
+
+// 회원가입 요청 상태
+export type SignupStatus = 'pending' | 'approved' | 'rejected';
+
+// 회원가입 요청 정보
+export interface SignupRequest {
+    id: string;
+    name: string;
+    username: string;
+    phone: string;
+    position: string; // 직급
+    status: SignupStatus;
+    requestDate: string;
+    approvedDate?: string;
+    rejectedDate?: string;
+    approvedBy?: string; // 승인자 ID
+    rejectedBy?: string; // 거절자 ID
+    rejectionReason?: string; // 거절 사유
+}
+
+// 회원가입 승인/거절 요청
+export interface ApprovalRequest {
+    requestId: string;
+    action: 'approve' | 'reject';
+    reason?: string; // 거절 시 사유
+}
+
+// 회원관리 필터
+export interface UserManagementFilter {
+    status?: SignupStatus;
+    position?: string;
+    searchTerm?: string; // 이름 또는 아이디로 검색
 }

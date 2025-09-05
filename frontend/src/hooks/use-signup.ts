@@ -9,7 +9,9 @@ interface SignupFormData {
     username: string
     password: string
     confirmPassword: string
-    displayName: string            // ✅ 추가
+    displayName: string
+    phone: string
+    position: string
 }
 
 export function useSignup() {
@@ -17,7 +19,9 @@ export function useSignup() {
         username: "",
         password: "",
         confirmPassword: "",
-        displayName: "",             // ✅ 초기값
+        displayName: "",
+        phone: "",
+        position: "",
     })
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -31,7 +35,8 @@ export function useSignup() {
     }
 
     const validateForm = () => {
-        if (!formData.username || !formData.password || !formData.confirmPassword || !formData.displayName) {
+        if (!formData.username || !formData.password || !formData.confirmPassword || 
+            !formData.displayName || !formData.phone || !formData.position) {
             setError("모든 필수 항목을 입력해주세요.")
             return false
         }
@@ -41,6 +46,12 @@ export function useSignup() {
         }
         if (formData.password.length < 6) {
             setError("비밀번호는 최소 6자 이상이어야 합니다.")
+            return false
+        }
+        // 전화번호 형식 검증
+        const phoneRegex = /^010-\d{4}-\d{4}$/
+        if (!phoneRegex.test(formData.phone)) {
+            setError("전화번호는 010-XXXX-XXXX 형식으로 입력해주세요.")
             return false
         }
         return true
@@ -55,24 +66,35 @@ export function useSignup() {
             username: formData.username,
             password: formData.password,
             displayName: formData.displayName,
+            phone: formData.phone,
+            position: formData.position,
         }
-        console.log("📦 Signup payload:", payload)   // ✅ 실제 전송할 데이터 확인
+        console.log("📦 Signup payload:", payload)
 
         setIsLoading(true)
         try {
             const res = await apiClient.signup(payload)
-            console.log("✅ Signup response:", res)    // ✅ 서버 응답 로그
-            // ...
+            console.log("✅ Signup response:", res)
+            setSuccess("회원가입 요청이 제출되었습니다. 관리자 승인 후 로그인이 가능합니다.")
+            onSuccess?.()
         } catch (e) {
             console.error("❌ Signup error:", e)
-            // ...
+            const errorMessage = e instanceof Error ? e.message : "회원가입 중 오류가 발생했습니다."
+            setError(errorMessage)
         } finally {
             setIsLoading(false)
         }
     }
 
     const resetForm = () => {
-        setFormData({ username: "", password: "", confirmPassword: "", displayName: "" })
+        setFormData({ 
+            username: "", 
+            password: "", 
+            confirmPassword: "", 
+            displayName: "",
+            phone: "",
+            position: ""
+        })
         setError("")
         setSuccess("")
         setShowPassword(false)
@@ -81,6 +103,7 @@ export function useSignup() {
 
     return {
         formData,
+        setFormData,
         handleInputChange,
         showPassword, setShowPassword,
         showConfirmPassword, setShowConfirmPassword,
